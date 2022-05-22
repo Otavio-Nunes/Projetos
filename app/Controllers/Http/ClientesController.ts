@@ -37,7 +37,7 @@ export default class PostController {
 
     public async Detalhar(ctx: HttpContextContract){
         return await Venda.query().whereHas('cliente', (vendasQuery) => {
-            vendasQuery.where('cliente_id', '1').andHas('venda.created_at=30')
+            vendasQuery.where('cliente_id', '5')
           }).orderBy('id', "desc")     
     }
 

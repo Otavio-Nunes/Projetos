@@ -14,9 +14,9 @@ export default class VendasController {
         vendas.quantidade = ctx.request.input('quantidade')
         vendas.precoUnitario = ctx.request.input('precoUnitario')
         vendas.precoFinal = ctx.request.input('precoFinal')
-        const cliente = await Cliente.findOrFail(8)
+        const cliente = await Cliente.findOrFail(5)
         await vendas.related('cliente').associate(cliente)
-        const produto = await Produto.findOrFail(10)
+        const produto = await Produto.findOrFail(3)
         await vendas.related('produto').associate(produto)
         await vendas.save()
         return vendas
