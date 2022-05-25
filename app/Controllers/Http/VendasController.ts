@@ -44,4 +44,11 @@ export default class VendasController {
         await vendas.related('produto').dissociate() 
         return "venda deletada com sucesso!"
     }
+
+    public async filtrar(ctx: HttpContextContract){
+        return await Vendas.query().whereHas('cliente', (vendasQuery) => {
+            vendasQuery.where('cliente_id', ctx.request.param('id'))
+            .where('created_at', 'like' , `%${ctx.request.qs().data}%`)
+          }).orderBy('id', "desc")     
+    }
 }

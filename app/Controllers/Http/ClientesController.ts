@@ -1,8 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Cliente from 'App/Models/Cliente'
-import Venda from 'App/Models/Venda';
-//import Telefone from 'App/Models/Telefone'
-
+import Venda from 'App/Models/Venda'
 
 export default class PostController {
     public async index(ctx: HttpContextContract) {
@@ -37,8 +35,7 @@ export default class PostController {
 
     public async Detalhar(ctx: HttpContextContract){
         return await Venda.query().whereHas('cliente', (vendasQuery) => {
-            vendasQuery.where('cliente_id', '5')
+            vendasQuery.where('cliente_id', '2')
           }).orderBy('id', "desc")     
     }
-
 }

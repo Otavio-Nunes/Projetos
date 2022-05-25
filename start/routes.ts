@@ -56,11 +56,12 @@ Route.group(() => {
 }).prefix('/api/Endereco')
 
 Route.group(() => {
-  Route.get('/Listar', 'VendasController.index')
+  Route.get('/listar', 'VendasController.index')
   Route.post('/Cadastrar', 'VendasController.Cadastrar')
   Route.put('/Atualizar/:id', 'VendasController.Atualizar')
   Route.delete('/Deletar/:id', 'VendasController.Deletar')
-}).prefix('/api/Vendas')
+  Route.get('/filtrar/:id', 'VendasController.filtrar')
+}).prefix('/api/vendas')
 
 Route.group(() => {
   Route.get('/Listar', 'TelefonesController.index')
