@@ -9,6 +9,7 @@ export default class UsuariosController {
 
     public async Cadastrar(ctx: HttpContextContract) {
         const usuario = new Usuario()
+        usuario.nome = ctx.request.input('nome')
         usuario.email = ctx.request.input('email')
         usuario.senha = ctx.request.input('senha')
         await usuario.save()
@@ -18,6 +19,7 @@ export default class UsuariosController {
     public async Atualizar(ctx: HttpContextContract) {
         const usuario = await Usuario.find(ctx.request.param('id'))
         if (usuario != null) {
+            usuario.nome = ctx.request.input('nome')
             usuario.email = ctx.request.input('email')
             usuario.senha = ctx.request.input('senha')
             await usuario.save()
