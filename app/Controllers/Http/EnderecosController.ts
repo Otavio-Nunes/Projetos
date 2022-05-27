@@ -5,7 +5,7 @@ import Endereco from 'App/Models/Endereco'
 export default class EnderecosController {
 
     public async index(ctx: HttpContextContract) {
-        const endereco = await Endereco.all()
+        const endereco = await Endereco.query().orderBy('id')
         return endereco
     }
 

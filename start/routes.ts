@@ -21,12 +21,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.get('/', async () => {
-    return ('teste de rotas ok')
-  });
-})
-
-Route.group(() => {
   Route.get('/Listar', 'ClientesController.index')
   Route.post('/Cadastrar', 'ClientesController.Cadastrar')
   Route.put('/Atualizar/:id', 'ClientesController.Atualizar')

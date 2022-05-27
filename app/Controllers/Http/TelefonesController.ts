@@ -11,7 +11,7 @@ export default class TelefonesController {
 
     public async Cadastrar(ctx: HttpContextContract) {
         const telefone = new Telefone()
-        const cliente = await Cliente.findOrFail(5)
+        const cliente = await Cliente.findOrFail(6)
         await telefone.related('cliente').associate(cliente)
         telefone.numero = ctx.request.input('numero')
         await telefone.save()
