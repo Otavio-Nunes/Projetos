@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, beforeSave, } from '@ioc:Adonis/Lucid/Orm'
+import Hash from '@ioc:Adonis/Core/Hash'
 
 export default class Usuario extends BaseModel {
   @column({ isPrimary: true })
@@ -19,4 +20,11 @@ export default class Usuario extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @beforeSave()
+  public static async hashSenha(Usuarios: Usuario) {
+    if (Usuarios.$dirty.senha) {
+      Usuarios.senha = await Hash.make(Usuarios.senha)
+    }
+  }
 }

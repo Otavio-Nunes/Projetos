@@ -7,6 +7,18 @@ export default class UsuariosController {
         return usuario
     }
 
+    public async login({auth, request, response}: HttpContextContract) {
+        const email = request.input('email')
+        const password = request.input('senha')
+
+        try {
+        const token = await auth.use('api').attempt(email, password)
+        return token
+        }     catch {
+            return response.badRequest('Invalid credentials')
+        }
+    }
+
     public async Cadastrar(ctx: HttpContextContract) {
         const usuario = new Usuario()
         usuario.nome = ctx.request.input('nome')
