@@ -1,20 +1,20 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Vendas extends BaseSchema {
-  protected tableName = 'vendas'
+export default class Sales extends BaseSchema {
+  protected tableName = 'sales'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table
-      .integer('produto_id')
+      .integer('product_id')
       .unsigned()
-      .references('produtos.id')
+      .references('products.id')
       .onDelete('CASCADE')
       table
-      .integer('cliente_id')
+      .integer('client_id')
       .unsigned()
-      .references('clientes.id')
+      .references('clients.id')
       .onDelete('CASCADE')
       table.integer('quantidade')
       table.float('preco_Unitario')

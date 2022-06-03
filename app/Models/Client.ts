@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, HasMany, hasMany, hasOne, HasOne} from '@ioc:Adonis/Lucid/Orm'
-import Telefone from './Telefone'
-import Venda from './Venda'
+import Telephone from './Telephone'
+import Sales from './Sale'
 
-export default class Cliente extends BaseModel {
+export default class Client extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
@@ -13,11 +13,11 @@ export default class Cliente extends BaseModel {
   @column()
   public cpf: string
 
-  @hasMany(() => Venda)
-  public venda: HasMany<typeof Venda>
+  @hasMany(() => Sales)
+  public sales: HasMany<typeof Sales>
 
-  @hasOne(() => Telefone)
-  public telefone: HasOne<typeof Telefone>
+  @hasOne(() => Telephone)
+  public telephone: HasOne<typeof Telephone>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

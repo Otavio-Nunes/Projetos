@@ -1,16 +1,15 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Enderecos extends BaseSchema {
-  protected tableName = 'enderecos'
+export default class Address extends BaseSchema {
+  protected tableName = 'address'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('rua')
-      table.integer('numero')
-      table.string('bairro')
-      table.string('cidade')
-      table.string('uf')
+      table.string('road')
+      table.integer('number')
+      table.string('district')
+      table.string('city')
 
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

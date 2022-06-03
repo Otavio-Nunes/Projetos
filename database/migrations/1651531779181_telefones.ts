@@ -1,15 +1,15 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Telefones extends BaseSchema {
-  protected tableName = 'telefones'
+export default class Telephone extends BaseSchema {
+  protected tableName = 'telephone'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table
-      .integer('cliente_id')
+      .integer('client_id')
       .unsigned()
-      .references('clientes.id')
+      .references('clients.id')
       .onDelete('CASCADE')
       table.integer('numero')
 

@@ -1,24 +1,21 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Endereco extends BaseModel {
+export default class Address extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public rua: string
+  public road: string
 
   @column()
-  public numero: number
+  public number: number
 
   @column()
-  public bairro: string
+  public district: string
 
   @column()
-  public cidade: string
-
-  @column()
-  public uf: string
+  public city: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
