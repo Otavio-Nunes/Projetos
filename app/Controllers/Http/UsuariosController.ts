@@ -8,22 +8,22 @@ export default class UsuariosController {
     }
 
     public async login({auth, request, response}: HttpContextContract) {
-        const email = request.input('email')
-        const password = request.input('senha')
+        const {email, password} = request.only(['email', 'password'])
 
         try {
         const token = await auth.use('api').attempt(email, password)
         return token
-        }     catch {
-            return response.badRequest('Invalid credentials')
+        } catch(error) {
+            console.log(error)
+        return response.badRequest('Invalid credentials')
         }
     }
 
     public async Cadastrar(ctx: HttpContextContract) {
         const usuario = new Usuario()
-        usuario.nome = ctx.request.input('nome')
+        usuario.username = ctx.request.input('username')
         usuario.email = ctx.request.input('email')
-        usuario.senha = ctx.request.input('senha')
+        usuario.password = ctx.request.input('password')
         await usuario.save()
         return usuario
     }
@@ -31,9 +31,9 @@ export default class UsuariosController {
     public async Atualizar(ctx: HttpContextContract) {
         const usuario = await Usuario.find(ctx.request.param('id'))
         if (usuario != null) {
-            usuario.nome = ctx.request.input('nome')
+            usuario.username = ctx.request.input('username')
             usuario.email = ctx.request.input('email')
-            usuario.senha = ctx.request.input('senha')
+            usuario.password = ctx.request.input('password')
             await usuario.save()
             return usuario
         } else {

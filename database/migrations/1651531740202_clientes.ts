@@ -7,7 +7,7 @@ export default class Clientes extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('nome')
+      table.string('username')
       table.string('cpf')
 
 

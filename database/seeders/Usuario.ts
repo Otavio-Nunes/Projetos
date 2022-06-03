@@ -8,13 +8,11 @@ export default class UsuarioSeeder extends BaseSeeder {
     await Usuario.updateOrCreateMany(uniqueKey, [
       {
         email: 'fred@gmail.com',
-        senha: 'admin'
+        password: 'admin'
       },
       {
-        
-      },
-      {
-
+        email: 'omaley@gmail.com',
+        password: 'admin'
       }
     ])
     

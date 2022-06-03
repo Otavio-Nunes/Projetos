@@ -10,7 +10,7 @@ export default class PostController {
 
     public async Cadastrar(ctx: HttpContextContract) {
         const cliente = new Cliente()
-        cliente.nome = ctx.request.input('nome')
+        cliente.username = ctx.request.input('username')
         cliente.cpf = ctx.request.input('cpf')
         await cliente.save()
         return cliente
@@ -19,7 +19,7 @@ export default class PostController {
     public async Atualizar(ctx: HttpContextContract) {
         const cliente = await Cliente.find(ctx.request.param('id'))
         if (cliente != null) {
-            cliente.nome = ctx.request.input('nome')
+            cliente.username = ctx.request.input('username')
             cliente.cpf = ctx.request.input('cpf')
             await cliente.save()
             return cliente

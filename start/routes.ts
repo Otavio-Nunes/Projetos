@@ -37,10 +37,10 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/Listar', 'UsuariosController.index')
-  Route.post('Cadastrar', 'UsuariosController.Cadastrar')
-  Route.put('Atualizar/:id', "UsuariosController.Atualizar")
-  Route.delete('Deletar/:id', "UsuariosController.Deletar")
-  Route.post('login', 'UsuariosController.login')
+  Route.post('/Cadastrar', 'UsuariosController.Cadastrar')
+  Route.put('/Atualizar/:id', "UsuariosController.Atualizar")
+  Route.delete('/Deletar/:id', "UsuariosController.Deletar")
+  Route.post('/login', 'UsuariosController.login')
 }).prefix('/api/Usuarios')
 
 Route.group(() => {
