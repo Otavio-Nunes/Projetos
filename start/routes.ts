@@ -33,15 +33,15 @@ Route.group(() => {
   Route.post('/Cadastrar', 'ProdutosController.Cadastrar')
   Route.put('/Atualizar/:id', 'ProdutosController.Atualizar')
   Route.delete('/Deletar/:id', 'ProdutosController.Deletar')
-}).prefix('/api/Produtos')
+}).prefix('/api/Products')
 
 Route.group(() => {
-  Route.get('/Listar', 'UsuariosController.index')
-  Route.post('/Cadastrar', 'UsuariosController.Cadastrar')
-  Route.put('/Atualizar/:id', "UsuariosController.Atualizar")
-  Route.delete('/Deletar/:id', "UsuariosController.Deletar")
-  Route.post('/login', 'UsuariosController.login')
-}).prefix('/api/Usuarios')
+  Route.get('/Listar', 'UsersController.index')
+  Route.post('/Cadastrar', 'UsersController.Cadastrar')
+  Route.put('/Atualizar/:id', "UsersController.Atualizar")
+  Route.delete('/Deletar/:id', "UsersController.Deletar")
+  Route.post('/login', 'UsersController.login')
+}).prefix('/api/Users')
 
 Route.group(() => {
   Route.get('/Listar', 'EnderecosController.index')
