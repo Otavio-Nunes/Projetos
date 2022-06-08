@@ -10,14 +10,14 @@ export default class UsersController {
     public async login({auth, request, response}: HttpContextContract){
         const email = request.input('email')
         const password = request.input('password')
-        
         try {
-            const usuario = await User.findBy('email', email)
+            const user = await User.findBy('email', email)
 
             const token = await auth.use('api').attempt(email, password, {
-              name: usuario?.serialize().email 
+                expiresIn: '30mins',
+                name: user?.serialize().email
             })
-            return {token, usuario: usuario?.serialize()}
+            return { token, user : user?.serialize() }
         } catch {
             return response.badRequest('invalid credentials')
         }

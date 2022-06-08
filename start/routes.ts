@@ -41,6 +41,7 @@ Route.group(() => {
   Route.put('/Atualizar/:id', "UsersController.Atualizar")
   Route.delete('/Deletar/:id', "UsersController.Deletar")
   Route.post('/login', 'UsersController.login')
+  
 }).prefix('/api/Users')
 
 Route.group(() => {

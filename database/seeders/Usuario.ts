@@ -15,7 +15,5 @@ export default class UserSeeder extends BaseSeeder {
        password: 'admin'
      }
     ])
-    
-    
   }
 }
