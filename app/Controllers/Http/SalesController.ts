@@ -14,9 +14,9 @@ export default class SalesController {
         sale.quantidade = ctx.request.input('quantidade')
         sale.precoUnitario = ctx.request.input('precoUnitario')
         sale.precoFinal = ctx.request.input('precoFinal')
-        const cliente = await Client.findOrFail(6)
+        const cliente = await Client.findOrFail(5)
         await sale.related('client').associate(cliente)
-        const product = await Product.findOrFail(6)
+        const product = await Product.findOrFail(3)
         await sale.related('product').associate(product)
         await sale.save()
         return sale
@@ -47,7 +47,7 @@ export default class SalesController {
 
     public async filtrar(ctx: HttpContextContract){
         return await Sale.query().whereHas('client', (salesQuery) => {
-            salesQuery.where('cliente_id', ctx.request.param('id'))
+            salesQuery.where('client_id', ctx.request.param('id'))
             .where('created_at', 'like' , `%${ctx.request.qs().data}%`)
           }).orderBy('id', "desc")     
     }

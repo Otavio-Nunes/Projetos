@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
 import Sale from 'App/Models/Sale'
 
-export default class PostController {
+export default class ClientsController {
     public async index(ctx: HttpContextContract) {
         const client = await Client.query().orderBy('id')
         return client

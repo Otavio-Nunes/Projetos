@@ -21,19 +21,19 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.get('/Listar', 'ClientesController.index')
-  Route.post('/Cadastrar', 'ClientesController.Cadastrar')
-  Route.put('/Atualizar/:id', 'ClientesController.Atualizar')
-  Route.delete('/Deletar/:id', 'ClientesController.Deletar')
-  Route.get('/Detalhar', 'clientesController.Detalhar')
-}).prefix('/api/Clientes')
+  Route.get('/Listar', 'ClientsController.index')
+  Route.post('/Cadastrar', 'ClientsController.Cadastrar')
+  Route.put('/Atualizar/:id', 'ClientsController.Atualizar')
+  Route.delete('/Deletar/:id', 'ClientsController.Deletar')
+  Route.get('/Detalhar', 'ClientsController.Detalhar')
+}).prefix('/api/clients').middleware('auth')
 
 Route.group(() => {
-  Route.get('/Listar', 'ProdutosController.index')
-  Route.post('/Cadastrar', 'ProdutosController.Cadastrar')
-  Route.put('/Atualizar/:id', 'ProdutosController.Atualizar')
-  Route.delete('/Deletar/:id', 'ProdutosController.Deletar')
-}).prefix('/api/Products')
+  Route.get('/Listar', 'ProductsController.index')
+  Route.post('/Cadastrar', 'ProductsController.Cadastrar')
+  Route.put('/Atualizar/:id', 'ProductsController.Atualizar')
+  Route.delete('/Deletar/:id', 'ProductsController.Deletar')
+}).prefix('/api/products').middleware('auth')
 
 Route.group(() => {
   Route.get('/Listar', 'UsersController.index')
@@ -42,26 +42,26 @@ Route.group(() => {
   Route.delete('/Deletar/:id', "UsersController.Deletar")
   Route.post('/login', 'UsersController.login')
   
-}).prefix('/api/Users')
+}).prefix('/api/users')
 
 Route.group(() => {
-  Route.get('/Listar', 'EnderecosController.index')
-  Route.post('/Cadastrar', 'EnderecosController.Cadastrar')
-  Route.put('/Atualizar/:id', "EnderecosController.Atualizar")
-  Route.delete('/Deletar/:id', 'EnderecosController.Deletar')
-}).prefix('/api/Endereco')
+  Route.get('/Listar', 'AddressController.index')
+  Route.post('/Cadastrar', 'AddressController.Cadastrar')
+  Route.put('/Atualizar/:id', "AddressController.Atualizar")
+  Route.delete('/Deletar/:id', 'AddressController.Deletar')
+}).prefix('/api/address')
 
 Route.group(() => {
-  Route.get('/listar', 'VendasController.index')
-  Route.post('/Cadastrar', 'VendasController.Cadastrar')
-  Route.put('/Atualizar/:id', 'VendasController.Atualizar')
-  Route.delete('/Deletar/:id', 'VendasController.Deletar')
-  Route.get('/filtrar/:id', 'VendasController.filtrar')
-}).prefix('/api/vendas')
+  Route.get('/listar', 'SalesController.index')
+  Route.post('/Cadastrar', 'SalesController.Cadastrar')
+  Route.put('/Atualizar/:id', 'SalesController.Atualizar')
+  Route.delete('/Deletar/:id', 'SalesController.Deletar')
+  Route.get('/filtrar/:id', 'SalesController.filtrar')
+}).prefix('/api/sales').middleware('auth')
 
 Route.group(() => {
-  Route.get('/Listar', 'TelefonesController.index')
-  Route.post('/Cadastrar', 'TelefonesController.Cadastrar')
-  Route.put('/Atualizar/:id', 'VendasController.Atualizar')
-  Route.delete('/Deletar/:id', 'TelefonesController.Deletar')
-}).prefix('/api/Telefone')  
+  Route.get('/Listar', 'TelephonesController.index')
+  Route.post('/Cadastrar', 'TelephonesController.Cadastrar')
+  Route.put('/Atualizar/:id', 'TelephonesController.Atualizar')
+  Route.delete('/Deletar/:id', 'TelephonesController.Deletar')
+}).prefix('/api/telephones')  

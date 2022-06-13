@@ -12,7 +12,7 @@ export default class AddressController {
     public async Cadastrar(ctx: HttpContextContract) {
         const address = new Address()
         address.road = ctx.request.input('road')
-        address.number = ctx.request.input('numbre')
+        address.number = ctx.request.input('number')
         address.district = ctx.request.input('district')
         address.city = ctx.request.input('city')
         await address.save()
