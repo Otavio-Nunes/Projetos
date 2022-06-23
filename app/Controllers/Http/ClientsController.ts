@@ -1,6 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
 import Sale from 'App/Models/Sale'
+import CreateClientValidator from 'App/Validators/CreateClientValidator'
+import UpdateClientValidator from 'App/Validators/UpdateClientValidator'
 
 export default class ClientsController {
     public async index(ctx: HttpContextContract) {
@@ -8,29 +10,39 @@ export default class ClientsController {
         return client
     }
 
-    public async Cadastrar(ctx: HttpContextContract) {
-        const client = new Client()
-        client.username = ctx.request.input('username')
-        client.cpf = ctx.request.input('cpf')
-        await client.save()
-        return client
+    public async Cadastrar({request, response}: HttpContextContract) {
+       try {
+        const payload = await request.validate(CreateClientValidator)
+        const client = await Client.create(payload)
+        return response.status(201).json(client)
+       } catch (error) {
+        return response.status(400).json(error)
+       }
     }
 
-    public async Atualizar(ctx: HttpContextContract) {
-        const client = await Client.find(ctx.request.param('id'))
-        if (client != null) {
-            client.username = ctx.request.input('username')
-            client.cpf = ctx.request.input('cpf')
-            await client.save()
-            return client
-        } else {
-            return "Não foi possivel atualizar o cliente!"
+    public async Atualizar({request, response}: HttpContextContract) {
+        try {
+            const payload = await request.validate(UpdateClientValidator)
+            const client = await Client.findOrFail(request.param('id'))
+            await client.
+            merge ({
+                username: payload.username,
+                cpf: payload.cpf
+            }).save()
+            return response.status(201).json(client)
+        } catch (error) {
+            return response.status(400).json(error)
         }
+        
     }
-    public async Deletar(ctx: HttpContextContract){
-        const client = await Client.findOrFail(ctx.request.param('id'))
+    public async Deletar({request, response}: HttpContextContract){
+        try {
+        const client = await Client.findOrFail(request.param('id'))
         await client.delete()
-        return "Cliente deletado com sucesso!"
+        return response.status(203)
+        } catch (error) {
+        return response.status(400).json(error)
+        }
     }
 
     public async Detalhar(ctx: HttpContextContract){

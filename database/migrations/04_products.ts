@@ -7,11 +7,11 @@ export default class Products extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('category')
-      table.string('name')
-      table.integer('pages')
-      table.string('author')
-      table.float('price')
+      table.string('category').notNullable()
+      table.string('name').notNullable()
+      table.integer('pages').notNullable()
+      table.string('author').notNullable()
+      table.float('price').notNullable()
 
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

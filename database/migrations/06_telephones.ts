@@ -11,7 +11,7 @@ export default class telephones extends BaseSchema {
       .unsigned()
       .references('clients.id')
       .onDelete('CASCADE')
-      table.integer('number')
+      table.integer('number').notNullable()
 
       
       table.timestamp('created_at', { useTz: true })

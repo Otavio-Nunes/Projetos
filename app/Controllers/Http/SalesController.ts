@@ -1,7 +1,10 @@
+import { Request } from '@adonisjs/core/build/standalone'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
 import Product from 'App/Models/Product'
 import Sale from 'App/Models/Sale'
+import CreateSaleValidator from 'App/Validators/CreateSaleValidator'
+import UpdateSaleValidator from 'App/Validators/UpdateSaleValidator'
 
 export default class SalesController {
     public async index(ctx: HttpContextContract) {
@@ -9,40 +12,48 @@ export default class SalesController {
         return sale
     }
 
-    public async Cadastrar(ctx: HttpContextContract) {
-        const sale = new Sale()
-        sale.quantidade = ctx.request.input('quantidade')
-        sale.precoUnitario = ctx.request.input('precoUnitario')
-        sale.precoFinal = ctx.request.input('precoFinal')
-        const cliente = await Client.findOrFail(5)
-        await sale.related('client').associate(cliente)
-        const product = await Product.findOrFail(3)
-        await sale.related('product').associate(product)
-        await sale.save()
-        return sale
-    }
-
-    public async Atualizar(ctx: HttpContextContract) {
-        const sale = await Sale.find(ctx.request.param('id'))
-        if (sale != null) {
-            sale.client = ctx.request.input('client')
-            sale.product = ctx.request.input('product')
-            sale.quantidade = ctx.request.input('quantidade')
-            sale.precoUnitario = ctx.request.input('precoUnitario')
-            sale.precoFinal = ctx.request.input('precoFinal')
+    public async Cadastrar({request, response}: HttpContextContract) {
+        try {
+            const payload = await request.validate(CreateSaleValidator)
+            const sale = await Sale.create(payload)
+            const cliente = await Client.findOrFail(2)
+            await sale.related('client').associate(cliente)
+            const product = await Product.findOrFail(7)
+            await sale.related('product').associate(product)
             await sale.save()
-            return sale
-        } else {
-            return "Não foi possivel atualizar a venda"
+            return response.status(200).json(sale)
+        } catch (error) {
+            return response.status(400).json(error)
         }
     }
 
-    public async Deletar(ctx: HttpContextContract) {
-        const sale = await Sale.findOrFail(ctx.request.param('id'))
-        await sale.delete()
-        await sale.related('client').dissociate()
-        await sale.related('product').dissociate() 
-        return "venda deletada com sucesso!"
+    public async Atualizar({request, response}: HttpContextContract) {
+        try {
+            const payload = await request.validate(UpdateSaleValidator)
+            const sale = await Sale.find(request.param('id'))
+            await sale?.merge({
+                clientId: payload.clientId,
+                productId: payload.productId,
+                quantidade: payload.quantidade,
+                precoUnitario: payload.precoUnitario,
+                precoFinal: payload.precoFinal
+            }).save()
+            return response.status(201).json(sale)
+        } catch (error) {
+            return response.status(400).json(error)
+        }
+    }
+
+    public async Deletar({request, response}: HttpContextContract) {
+        try {
+            const sale = await Sale.findOrFail(request.param('id'))
+            await sale.delete()
+            await sale.related('client').dissociate()
+            await sale.related('product').dissociate()
+            return response.status(203)
+        } catch (error) {
+            return response.status(400).json(error)
+        }
     }
 
     public async filtrar(ctx: HttpContextContract){
